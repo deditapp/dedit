@@ -7,6 +7,7 @@ specifiers:
   '@types/react-dom': ^18.0.2
   eslint: 8.14.0
   eslint-config-next: 12.1.5
+  eslint-formatter-rdjson: ^1.0.5
   husky: ^7.0.4
   lint-staged: ^12.4.0
   next: 12.1.5
@@ -27,6 +28,7 @@ devDependencies:
   '@types/react-dom': 18.0.2
   eslint: 8.14.0
   eslint-config-next: 12.1.5_f9aca591fe836eec9a0024e01b547f29
+  eslint-formatter-rdjson: 1.0.5
   husky: 7.0.4
   lint-staged: 12.4.0
   prettier: 2.6.2
@@ -1118,6 +1120,10 @@ packages:
       typescript: 4.6.3
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /eslint-formatter-rdjson/1.0.5:
+    resolution: {integrity: sha512-z275VEQgzmAF04yTRvvl1DbEMEczVb9pGUoj31zzydBTn/gYcKLUIxLEXRzpWqh4llOYMuICICAHFbdF/yA28A==}
     dev: true
 
   /eslint-import-resolver-node/0.3.4:
