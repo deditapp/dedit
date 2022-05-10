@@ -1,23 +1,28 @@
 import {
-	CAN_REDO_COMMAND, CAN_UNDO_COMMAND, COMMAND_PRIORITY_CRITICAL, REDO_COMMAND,
-	UNDO_COMMAND
+	CAN_REDO_COMMAND,
+	CAN_UNDO_COMMAND,
+	COMMAND_PRIORITY_CRITICAL,
+	REDO_COMMAND,
+	UNDO_COMMAND,
 } from "lexical";
 import { useEffect, useState } from "react";
 import {
-	AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight,
-	AiOutlineBold, AiOutlineItalic, AiOutlineRedo, AiOutlineStrikethrough,
-	AiOutlineUnderline, AiOutlineUndo
+	AiOutlineAlignCenter,
+	AiOutlineAlignLeft,
+	AiOutlineAlignRight,
+	AiOutlineBold,
+	AiOutlineItalic,
+	AiOutlineRedo,
+	AiOutlineStrikethrough,
+	AiOutlineUnderline,
+	AiOutlineUndo,
 } from "react-icons/ai";
 import { BsJustify } from "react-icons/bs";
 
-import {
-	useLexicalComposerContext
-} from "@lexical/react/LexicalComposerContext";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 
-import {
-	Divider, ToolbarButton, ToolbarButtonGroup, ToolbarContainer
-} from "./styles";
+import { Divider, ToolbarButton, ToolbarButtonGroup, ToolbarContainer } from "./styles";
 
 export const ToolbarPlugin: React.FC = () => {
 	const [canUndo, setCanUndo] = useState(false);
