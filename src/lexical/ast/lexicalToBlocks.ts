@@ -1,6 +1,8 @@
 import { EditorState, ElementNode, LexicalNode } from "lexical";
 
-import { AnyBlock, Block, BlockType, RootBlock, WithChildren } from "@dedit/models/dist/v1";
+import { AnyBlock, Block, RootBlock } from "@dedit/models/dist/v1";
+
+import { hasChildren, hasData, isRootBlock, lexicalTypeToBlockType } from "./common";
 
 type NodeTree = { node: ElementNode | LexicalNode; children: { [x: string]: NodeTree } };
 
@@ -13,6 +15,12 @@ const nodeIsElementNode = (node: any): node is ElementNode => {
 	return node instanceof ElementNode;
 };
 
+/**
+ * Cast `node` to an `ElementNode`.
+ * @param node The node to cast.
+ * @returns An `ElementNode`
+ * @throws TypeError if `node` is not an `ElementNode`.
+ */
 const castToElementNode = (node: any): ElementNode => {
 	if (nodeIsElementNode(node)) {
 		return node;
@@ -52,39 +60,6 @@ const stateToAst = (state: EditorState): NodeTree => {
 };
 
 /**
- * Convert a lexical node type into Dedit `BlockType`.
- */
-const lexicalTypeToBlockType = (type: string): BlockType => {
-	switch (type) {
-		case "root":
-			return BlockType.Root;
-		case "paragraph":
-			return BlockType.Paragraph;
-		case "text":
-			return BlockType.Text;
-		default:
-			throw new TypeError("Unknown block type");
-	}
-};
-
-/**
- * Test if this block has children.
- */
-const hasChildren = <T extends Block>(block: T): block is WithChildren<T> => {
-	switch (block.type) {
-		case BlockType.Root:
-		case BlockType.Paragraph:
-			return true;
-		default:
-			return false;
-	}
-};
-
-const isRootBlock = (block: AnyBlock): block is RootBlock => {
-	return block.type === BlockType.Root;
-};
-
-/**
  * Convert the Lexical AST into Dedit blocks.
  */
 const astToBlocks = (ast: NodeTree): RootBlock => {
@@ -97,8 +72,13 @@ const astToBlocks = (ast: NodeTree): RootBlock => {
 		if (hasChildren(block)) {
 			block.children = Object.values(node.children).map(buildTree);
 		}
+		// if there is data, add it
+		if (hasData(block)) {
+			block.data = node.node.getTextContent();
+		}
 		return block as AnyBlock;
 	};
+	// assert root is actually the root
 	const root = buildTree(ast);
 	if (!isRootBlock(root)) {
 		throw new TypeError("Root block not found");
@@ -114,7 +94,6 @@ export const lexicalToBlocks = async (state: EditorState): Promise<RootBlock> =>
 		state.read(() => {
 			const ast = stateToAst(state);
 			const blocks = astToBlocks(ast);
-			console.log(blocks);
 			resolve(blocks);
 		})
 	);
