@@ -52,3 +52,5 @@ const Home: NextPage = () => (
 		</VStack>
 	</VStack>
 );
+
+export default Home;
