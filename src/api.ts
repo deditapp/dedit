@@ -4,7 +4,7 @@ import { Document, RootBlock } from "@dedit/models/dist/v1";
 
 import { API_ENDPOINT } from "./env";
 
-const API = axios.create({ baseURL: API_ENDPOINT });
+export const API = axios.create({ baseURL: API_ENDPOINT });
 
 /**
  * Create a new document.
