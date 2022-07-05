@@ -8,7 +8,7 @@ import { store } from "../redux";
 const App = ({ Component, pageProps }: AppProps) => (
 	<ChakraProvider>
 		<Provider store={store}>
-			<Component {...pageProps} />;
+			<Component {...pageProps} />
 		</Provider>
 	</ChakraProvider>
 );
