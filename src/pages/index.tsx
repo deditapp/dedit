@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 
 import { AddIcon } from "@chakra-ui/icons";
-import { Box, Button, Center, forwardRef, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, forwardRef, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 
 import { useRedirectIfNotLoggedIn } from "../hooks/redirectIfLoggedIn";
 import { useAppSelector } from "../redux";
@@ -47,11 +47,6 @@ const Home: NextPage = () => {
 					<HStack height="60px" width="100%" padding="0 20px">
 						<Box marginRight="auto">
 							<Heading size="md">dedit</Heading>
-						</Box>
-						<Box>
-							<Button colorScheme="blue" variant="solid">
-								Login
-							</Button>
 						</Box>
 					</HStack>
 					<VStack alignItems="start" maxWidth="none" width="100%" spacing={0}>

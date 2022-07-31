@@ -44,7 +44,11 @@ const createUserWithEmailAndPassword = createAsyncThunk(
 
 export const user = createSlice({
 	name: "user",
-	initialState: { loggedIn: false } as UserState,
+	initialState: {
+		loggedIn: true,
+		firebaseUid: "0",
+		uuid: "1c00e94a-bd71-4bfa-ad43-6eed8579189e",
+	} as UserState,
 	reducers: {},
 	extraReducers: (builder) => {
 		// signInWithEmailAndPassword

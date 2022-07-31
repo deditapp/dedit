@@ -90,7 +90,7 @@ const astToBlocks = (ast: NodeTree): RootBlock => {
  * Convert Lexical editor state into Dedit blocks.
  */
 export const lexicalToBlocks = async (state: EditorState): Promise<RootBlock> =>
-	new Promise((resolve, reject) =>
+	new Promise((resolve) =>
 		state.read(() => {
 			const ast = stateToAst(state);
 			const blocks = astToBlocks(ast);

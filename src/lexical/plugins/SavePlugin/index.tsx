@@ -1,19 +1,29 @@
+import { useState } from "react";
+
+import { Button } from "@chakra-ui/react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
-import { getDocument, saveDocument } from "../../../api";
+import { getDocument, updateDocument } from "../../../api";
 import { lexicalToBlocks } from "../../ast/lexicalToBlocks";
 import { writeBlocksToState } from "../../ast/writeBlocksToState";
-import { Button } from "./styles";
 
 export const SavePlugin: React.FC = () => {
 	const [editor] = useLexicalComposerContext();
+	const [saving, setSaving] = useState(false);
 
 	return (
 		<>
 			<Button
+				isLoading={saving}
 				onClick={async () => {
-					const rootBlock = await lexicalToBlocks(editor.getEditorState());
-					await saveDocument("0", rootBlock);
+					setSaving(true);
+					try {
+						const rootBlock = await lexicalToBlocks(editor.getEditorState());
+						await updateDocument("0", rootBlock);
+					} catch (err) {
+						console.error(err);
+					}
+					setSaving(false);
 				}}
 			>
 				Save

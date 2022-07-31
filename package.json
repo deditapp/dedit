@@ -12,7 +12,7 @@
 	"dependencies": {
 		"@chakra-ui/icons": "^2.0.1",
 		"@chakra-ui/react": "^1.8.8",
-		"@dedit/models": "^1.1.1",
+		"@dedit/models": "github:deditapp/models",
 		"@emotion/react": "^11",
 		"@emotion/styled": "^11",
 		"@lexical/react": "^0.2.7",

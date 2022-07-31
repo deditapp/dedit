@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import { Document, RootBlock } from "@dedit/models/dist/v1";
+import { DocumentUpdatePayload } from "@dedit/models/dist/v1/document";
+import { Document } from "@dedit/models/src/v1";
 
 import { API_ENDPOINT } from "./env";
 
@@ -15,7 +16,7 @@ export const createDocument = () => API.post<Document>("/documents").then(({ dat
 /**
  * Save a document to the server.
  */
-export const saveDocument = (id: string, ast: RootBlock) =>
-	API.patch<string>(`/documents/${id}`, ast);
+export const updateDocument = (id: string, payload: DocumentUpdatePayload) =>
+	API.patch<string>(`/v1/documents/${id}`, payload);
 
 export const getDocument = (id: string) => API.get<Document>(`/documents/${id}`);

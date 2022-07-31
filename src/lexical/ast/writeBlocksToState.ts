@@ -6,25 +6,23 @@ import {
 	LexicalEditor,
 	LexicalNode,
 } from "lexical";
-import { last } from "lodash";
 
-import { Block, BlockType, Document } from "@dedit/models/dist/v1";
+import { Block, BlockType, RootBlock } from "@dedit/models/dist/v1";
 
 import { hasChildren } from "./common";
 
 /**
  * Convert a Dedit document into Lexical editor state.
  */
-export const writeBlocksToState = (editor: LexicalEditor, document: Document) => {
+export const writeBlocksToState = (editor: LexicalEditor, rootBlock: RootBlock) => {
 	editor.update(() => {
 		// get and empty the root node.
 		const rootNode = $getRoot();
 		rootNode.clear();
 		// do not update if there are no revisions
-		if (document.revisions.length === 0) {
+		if (rootBlock.children.length === 0) {
 			return;
 		}
-		const rootBlock = last(document.revisions)!;
 		rootBlock.children.forEach((block) => createBlockAndAppend(rootNode, block));
 	});
 };

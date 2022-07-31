@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ToolbarContainer = styled.div`
 	display: flex;
+	padding: 2.5rem;
 `;
 
 export const ToolbarButtonGroup = styled.div`
