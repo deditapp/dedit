@@ -1,6 +1,6 @@
 import { EditorState, ElementNode, LexicalNode } from "lexical";
 
-import { AnyBlock, Block, RootBlock } from "@dedit/models/dist/v1";
+import { AnyBlock, BlockType, RootBlock } from "@dedit/models/dist/v1";
 
 import { hasChildren, hasData, isRootBlock, lexicalTypeToBlockType } from "./common";
 
@@ -65,16 +65,26 @@ const stateToAst = (state: EditorState): NodeTree => {
 const astToBlocks = (ast: NodeTree): RootBlock => {
 	const buildTree = (node: NodeTree): AnyBlock => {
 		const type = lexicalTypeToBlockType(node.node.__type);
-		const block: Block = {
+		const block = {
 			type,
-		};
+		} as unknown as AnyBlock;
 		// recursively add children
 		if (hasChildren(block)) {
 			block.children = Object.values(node.children).map(buildTree);
 		}
 		// if there is data, add it
 		if (hasData(block)) {
-			block.data = node.node.getTextContent();
+			switch (block.type) {
+				case BlockType.Text:
+					block.data = {
+						content: node.node.getTextContent(),
+						bold: false,
+						italic: false,
+						strikethrough: false,
+						underline: false,
+					};
+					break;
+			}
 		}
 		return block as AnyBlock;
 	};

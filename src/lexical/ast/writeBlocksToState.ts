@@ -7,7 +7,7 @@ import {
 	LexicalNode,
 } from "lexical";
 
-import { Block, BlockType, RootBlock } from "@dedit/models/dist/v1";
+import { AnyBlock, BlockType, RootBlock } from "@dedit/models/dist/v1";
 
 import { hasChildren } from "./common";
 
@@ -19,22 +19,19 @@ export const writeBlocksToState = (editor: LexicalEditor, rootBlock: RootBlock) 
 		// get and empty the root node.
 		const rootNode = $getRoot();
 		rootNode.clear();
-		// do not update if there are no revisions
-		if (rootBlock.children.length === 0) {
-			return;
-		}
+		// recursively build children
 		rootBlock.children.forEach((block) => createBlockAndAppend(rootNode, block));
 	});
 };
 
-const createBlockAndAppend = (parent: ElementNode, block: Block) => {
+const createBlockAndAppend = (parent: ElementNode, block: AnyBlock) => {
 	let node: LexicalNode;
 	switch (block.type) {
 		case BlockType.Paragraph:
 			node = $createParagraphNode();
 			break;
 		case BlockType.Text:
-			node = $createTextNode();
+			node = $createTextNode(block.data.content);
 			break;
 		default:
 			throw new TypeError("Unknown block type");

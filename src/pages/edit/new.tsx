@@ -11,7 +11,7 @@ export default function NewDocument() {
 
 	useEffect(() => {
 		(async () => {
-			const result = await API.v1.documentsControllerV1Create().then((r) => r.data);
+			const result = await API.v1.createDocument().then((r) => r.data);
 			router.push(`/edit/${result.id}`);
 		})();
 	}, [router]);
