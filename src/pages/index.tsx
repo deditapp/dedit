@@ -7,10 +7,18 @@ import { Box, Center, forwardRef, Heading, HStack, Text, VStack } from "@chakra-
 import { useRedirectIfNotLoggedIn } from "../hooks/redirectIfLoggedIn";
 import { useAppSelector } from "../redux";
 
-const PlaceholderDocumentItem: React.FC = forwardRef(() => (
-	<Center width="100px" height="140px" border="1px solid #aaa" borderRadius="5px" cursor="pointer">
-		<AddIcon color="#aaa" />
-	</Center>
+const PlaceholderDocumentItem: React.FC = forwardRef(({ onClick, href }, ref) => (
+	<a href={href} onClick={onClick} ref={ref}>
+		<Center
+			width="100px"
+			height="140px"
+			border="1px solid #aaa"
+			borderRadius="5px"
+			cursor="pointer"
+		>
+			<AddIcon color="#aaa" />
+		</Center>
+	</a>
 ));
 
 const TemplateDocuments: React.FC = () => {
